@@ -43,6 +43,6 @@
         }
     },
     "backend": {
-        "imageid": "node:lts-alpine"
+        "imageid": "ubuntu"
     }
 }
