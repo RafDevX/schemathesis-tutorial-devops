@@ -1,0 +1,197 @@
+openapi: 3.0.0
+info:
+    title: Calculator API
+    description: >-
+        This API allows doing stuff when math is too hard
+    version: 1.0.0
+servers:
+    - url: https://localhost:3025
+paths:
+    /sum:
+        post:
+            operationId: sum
+            summary: Sum multiple numbers
+            requestBody:
+                description: The list of numbers to sum
+                content:
+                    application/json:
+                        schema:
+                            type: array
+                            items:
+                                type: number
+                        examples:
+                            list-of-three:
+                                value: [23, 27, 2]
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    sum:
+                                        type: number
+                                required:
+                                    - sum
+                            examples:
+                                result:
+                                    value:
+                                        sum: 52
+                "400":
+                    $ref: "#/components/responses/BadRequestResponse"
+    /divide:
+        post:
+            operationId: divide
+            summary: Divide multiple numbers
+            requestBody:
+                description: The numbers to operate on
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                dividend:
+                                    type: number
+                                divisor:
+                                    type: number
+                            required:
+                                - dividend
+                                - divisor
+                        examples:
+                            simple:
+                                value:
+                                    dividend: 12
+                                    divisor: 3
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    quotient:
+                                        type: number
+                                required:
+                                    - quotient
+                            examples:
+                                result:
+                                    value:
+                                        quotient: 4
+                "400":
+                    $ref: "#/components/responses/BadRequestResponse"
+    /power:
+        post:
+            operationId: power
+            summary: Calculate exponentiation
+            requestBody:
+                description: The numbers to operate on
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                base:
+                                    type: number
+                                exponent:
+                                    type: number
+                            required:
+                                - base
+                                - exponent
+                        examples:
+                            simple:
+                                value:
+                                    base: 2
+                                    exponent: 3
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    power:
+                                        type: number
+                                required:
+                                    - power
+                            examples:
+                                result:
+                                    value:
+                                        power: 8
+                "400":
+                    $ref: "#/components/responses/BadRequestResponse"
+    /history:
+        get:
+            operationId: history
+            summary: Show last calculations
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    oneOf:
+                                        - type: object
+                                          properties:
+                                            operation:
+                                                type: string
+                                                enum: ["sum"]
+                                            numbers:
+                                                type: array
+                                                items:
+                                                    type: number
+                                            sum:
+                                                type: number
+                                          required:
+                                            - operation
+                                            - numbers
+                                            - sum
+                                        - type: object
+                                          properties:
+                                            operation:
+                                                type: string
+                                                enum: ["division"]
+                                            dividend:
+                                                type: number
+                                            divisor:
+                                                type: number
+                                            quotient:
+                                                type: number
+                                          required:
+                                            - operation
+                                            - dividend
+                                            - divisor
+                                            - quotient
+                                        - type: object
+                                          properties:
+                                            operation:
+                                                type: string
+                                                enum: ["exponentiation"]
+                                            base:
+                                                type: number
+                                            exponent:
+                                                type: number
+                                            power:
+                                                type: number
+                                          required:
+                                            - operation
+                                            - base
+                                            - exponent
+                                            - power
+components:
+    responses:
+        BadRequestResponse:
+            description: Bad Request
+            content:
+                application/json:
+                    schema:
+                        type: object
+                        properties:
+                            error:
+                                type: string
+                        required:
+                            - error

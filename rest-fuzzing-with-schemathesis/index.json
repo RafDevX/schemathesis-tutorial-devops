@@ -1,0 +1,48 @@
+{
+    "title": "Automated REST API fuzzing using Schemathesis",
+    "description": "Learn how to systematically test your API endpoints!",
+    "details": {
+        "intro": {
+            "text": "intro/text.md",
+            "background": "intro/background.sh",
+            "foreground": "./wait-for-background.sh"
+        },
+        "steps": [
+            {
+                "title": "OpenAPI Specification File",
+                "text": "step1-openapi/text.md"
+            },
+            {
+                "title": "Trying out the Calculator API",
+                "text": "step2-calc/text.md"
+            },
+            {
+                "title": "Fuzzing with Schemathesis",
+                "text": "step3-st/text.md"
+            },
+            {
+                "title": "Understanding Schemathesis Output",
+                "text": "step4-output/text.md"
+            },
+            {
+                "title": "Fixing Discovered Problems",
+                "text": "step5-fix/text.md"
+            },
+            {
+                "title": "Checking our Changes",
+                "text": "step6-check/text.md"
+            }
+        ],
+        "finish": {
+            "text": "finish/text.md"
+        },
+        "assets": {
+            "host01": [
+                {"file": "**", "target": "/assets"}
+            ]
+        }
+    },
+    "backend": {
+        "imageid": "node:lts-alpine"
+    }
+}
