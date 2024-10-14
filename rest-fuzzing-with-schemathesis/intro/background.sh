@@ -1,5 +1,4 @@
 sudo apt update
-sudo apt install -y nodejs npm bat
-npm install --global yarn
+sudo apt install -y bat
 
 touch /tmp/bg-ready

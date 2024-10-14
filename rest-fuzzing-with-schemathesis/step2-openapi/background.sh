@@ -1,6 +1,8 @@
 cp /assets/calculator/openapi.yaml .
 
-cp /assets/calculator/index.html .
-npx --yes serve
-
 touch /tmp/bg-ready
+
+sudo apt install -y nodejs npm
+npm install --global yarn
+
+touch /tmp/node-ready

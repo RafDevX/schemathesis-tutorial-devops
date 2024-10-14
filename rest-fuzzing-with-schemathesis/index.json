@@ -20,7 +20,9 @@
             },
             {
                 "title": "Trying out the Calculator API",
-                "text": "step3-calc/text.md"
+                "text": "step3-calc/text.md",
+                "background": "step3-calc/background.sh",
+                "foreground": "./wait-for-background.sh"
             },
             {
                 "title": "Fuzzing with Schemathesis",
