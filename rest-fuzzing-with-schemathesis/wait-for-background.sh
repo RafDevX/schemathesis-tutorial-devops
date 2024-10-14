@@ -12,5 +12,7 @@ while true; do
     done
 done
 
+alias cat='batcat'
+
 rm /tmp/bg-ready # prepare for next invocation
 clear
