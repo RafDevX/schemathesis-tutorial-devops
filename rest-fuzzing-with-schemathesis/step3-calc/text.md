@@ -24,13 +24,67 @@ All this documentation, which would take humans many hours of manual labor to
 accomplish, is magically obtainable in an instant just because we used a
 standardized specification format that's *machine-readable*.
 
----
+## Example Request
 
-background.sh should automatically get node running on some port
+Let's try out making a request to the Calculator server, so we know how client
+applications might defer important calculations to this specialized oracle.
 
-our working example, the calculator server
+Imagine this situation: every month, you spend 90% of your paycheck to buy 45kg
+of delicious cat food. The packaging says that this should be enough to satisfy
+your adult cat *Math*ilda for around 150 days, but something is clearly wrong
+since you are running out of food much earlier than expected.
 
-importantly, the openapi format is machine-readable, meaning that some tools can
-understand it and do stuff, such as automatically generate docs: check out here
+This is the perfect scenario to make use of our Calculator application. Mathilda
+insists that she needs 1.5kg of food per day, but you suspect that somehow that
+might not match the information on the packaging, so you want to double-check.
+This means that you want to calculate 45kg divided by 150 days (i.e., how much
+food Mathilda is recommended to eat daily) and see if the result really is the
+1.5kg that she claims.
 
-tell them to try out some operation using curl
+To accomplish this, and looking at the documentation linked above, we can make
+an HTTP `POST` request to `/divide` with the body
+
+```json
+{"dividend": 45, "divisor": 150}
+```
+
+which we can do by running (in the terminal) the command:
+
+```sh
+curl http://localhost:3025/divide -H 'Content-Type: application/json' -d '{"dividend": 45, "divisor": 150}'
+```
+
+This will then show the result sent by the server, which is
+
+```json
+{"quotient": 0.3}
+```
+
+which means that Mathilda is expected to eat 300 grams of food per day, and not
+1.5kg. This is because Mathilda has been blatantly lying to our face. We can
+therefore conclude that Mathilda is a bad cat, and is likely smuggling a large
+percentage of her food to Bernard (the neighbor's cat), her one true love in
+life.
+
+We can further refer to this result (for example, when confronting Bernard's
+owner about the enormous debt they will suddenly find themselves in) by querying
+the server's calculation history:
+
+```sh
+curl http://localhost:3025/history
+```
+
+which shows something like
+
+```json
+[ {"operation": "division", "dividend": 45, "divisor": 150, "quotient": 0.3} ]
+```
+
+In this way, we have demonstrated how one might use our example API in a
+real-life scenario.
+
+# Next Up
+
+Having now a grasp of how REST APIs work, we can move onto the main topic of
+this tutorial: fuzzing. Click **NEXT** if you still love Matilda, despite the
+newfound challenges in your relationship.
