@@ -10,7 +10,9 @@
         "steps": [
             {
                 "title": "OpenAPI Specification File",
-                "text": "step1-openapi/text.md"
+                "text": "step1-openapi/text.md",
+                "background": "step1-openapi/background.sh",
+                "foreground": "./wait-for-background.sh"
             },
             {
                 "title": "Trying out the Calculator API",

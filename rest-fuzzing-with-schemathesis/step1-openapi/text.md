@@ -1,10 +1,201 @@
+# REST APIs
 
-what is openapi
+Web-based solutions are usually divided into server-side components (backend)
+and client-side components (frontend). These separate parts operate
+independently, but need some way of communicating between them. In some cases,
+one part *C* might depend on a service provided by *S* to perform some operation
+*S* is specialized in.
 
-open the spec file and read it
+In order to allow information to be sent between these programs, a specific
+"language" needs to be established and agreed upon, so that everyone involved
+knows what messages can be sent to whom and with what parameters, as well as
+what the response will look like and how it can be parsed.
 
-brief overview (we have 3 POST endpoints and 1 GET)
+These sets of definitions and protocols exposed by one part and used by others
+is called an **Application Programming Interface (API)**, and a common paradigm
+for defining one is called **REST** (for *REpresentational State Transfer*),
+since some representation of relevant objects is sent back and forth. Nowadays,
+it is usual for **RESTful APIs** to be based on **HTTP** and use representations
+in **JSON** (*JavaScript Object Notation*), meaning that a lot of components
+have a common language they speak and so can easily be interoperable with each
+other.
 
-explain in detail one of them, to exemplify
+Servers accept *requests* at some *API endpoint*, defined by a **verb** (such
+as `GET`/`POST`/`DELETE`/...) and a **URL**. They process such requests and then
+reply with a *response* that the client applications can parse.
 
-working example: calculator API
+For example, a pet store server might accept HTTP `GET` requests at `/pets` and
+respond with a brief list of all the pets it has available:
+
+```json
+[
+    {"id": 34, "name": "sofia", "kind": "dog"},
+    {"id": 178, "name": "sofia2", "kind": "cat"}
+]
+```
+
+It might also similarly accept `POST` requests at the same URL to register a new
+pet, with the client having to submit some pieces of information, such as:
+
+```json
+{
+    "name": "sofia3",
+    "kind": "bird",
+    "cute": true,
+    "sofas_destroyed": 17
+}
+```
+
+# OpenAPI
+
+But how can the client know what API endpoints the server supports, and what
+information format it should expect? Usually this is done by means of manual
+documentation, with programmers designing documents and websites that clarify
+the underlying API. Nevertheless, there is a more powerful way of accomplishing
+this: if APIs can be defined in one unified way, generic tools could be used to
+parse those descriptions and automatically infer the information needed to
+automate important tasks.
+
+**OpenAPI** is a (standardized) specification for a machine-readable interface
+definition language that provides a formal standard for describing HTTP-based
+APIs. With OpenAPI, an API's specification can be encoded in a YAML document (or
+JSON), allowing it to be clearly understood by humans and tools alike, even if
+they don't know the specifics of the application.
+
+# Calculator API
+
+For the purposes of this tutorial, we have created a simple Node program
+(written in JavaScript) that provides a calculator service. The API it exposes
+is described in OpenAPI format (version 3.0), with a YAML document specifying
+three `POST` endpoints for different mathematical functions, as well as one
+`GET` endpoint to access the calculator history.
+
+You can take a look at this document by running the command
+```sh
+less openapi.yaml
+```
+in the terminal on the right. Feel free to skim through the file using the arrow
+keys and press `Q` to quit when you're done.
+
+## A Closer Look
+
+This YAML file is relatively long, given that we have several endpoints, so it
+can be a bit overwhelming at first. Let's then focus just on the first endpoint
+described, `POST /sum`, which refers to the sum function. The specification
+includes an operation ID (which might be referenced in the code), a short
+description of what operation is performed, and a description of what possible
+request bodies and responses are valid:
+
+```yaml
+/sum: # <--- this is the path to which requests can be sent
+    post: # <--- the verb for this operation
+        operationId: sum
+        summary: Sum multiple numbers
+        requestBody:
+            ... # when making a request, what does the client need to send?
+        responses:
+            ... # what do server replies look like?
+```
+
+First, let's take a look at the request body specification:
+
+```yaml
+requestBody:
+    description: The list of numbers to sum
+    content:
+        application/json:
+            schema:
+                type: array
+                items:
+                    type: number
+            examples:
+                list-of-three:
+                    value: [23, 27, 2]
+```
+
+We can see that the request body is expected to contain an array of numbers,
+which (from the description) clearly correspond to the numbers that the server
+will add together. The schema is enough for a machine to understand everything,
+but an example is also provided to help humans better visualize this.
+
+Next, we can look at what responses the server might reply with (and which the
+client should be ready to parse):
+
+```yaml
+responses:
+    "200":
+        description: OK
+        content:
+            application/json:
+                schema:
+                    type: object
+                    properties:
+                        sum:
+                            type: number
+                    required:
+                        - sum
+                examples:
+                    result:
+                        value:
+                            sum: 52
+    "400":
+        $ref: "#/components/responses/BadRequestResponse"
+```
+
+From this snippet, we can easily infer that there are two possible responses. If
+everything is correct, a JSON object such as
+```json
+{"sum": 52}
+```
+will be sent with HTTP status code `200 OK`; otherwise, we'll receive a
+`400 Bad Request` response indicating some problem with our request.
+
+The `$ref` here shows how we can reuse certain snippets in multiple places, to
+promote consistency and readability. It just points the reader to go look at
+the description in `#/components/responses/BadRequestResponse` further down in
+the YAML file. If we scroll all the way down, we see:
+
+```yaml
+components:
+    responses:
+        BadRequestResponse:
+            description: Bad Request
+            content:
+                application/json:
+                    schema:
+                        type: object
+                        properties:
+                            error:
+                                type: string
+                        required:
+                            - error
+```
+
+which is, similarly, quite easy to understand: the server might reply with
+something like
+```json
+{"error": "Body must comprise list of numbers"}
+```
+
+## Automatic Documentation
+
+To showcase how powerful using a standardized language is, open
+[this link]({{TRAFFIC_HOST1_3000}}) in another browser tab. As you can see,
+the page shows detailed documentation for the Calculator API we've been looking
+at --- and the best part? It's being automatically generated by a generic tool
+(called RapiDoc) based on the YAML document we just skimmed through.
+
+If you run `cat index.html` in your terminal, you'll see that the whole page is
+defined in just a few lines of code, consisting mostly of RapiDoc settings to
+customize its looks. The actual semantic work is done when the user opens the
+page, with RapiDoc pulling the heavy weight to read the OpenAPI spec file and
+render it nicely for a human to understand the API.
+
+All this documentation, which would take humans many hours of manual labor to
+accomplish, is magically obtainable in an instant just because we used a
+standardized specification format that's *machine-readable*.
+
+<hr>
+
+Now that you know how to read OpenAPI files, let's take a closer look at our
+Calculator application.
