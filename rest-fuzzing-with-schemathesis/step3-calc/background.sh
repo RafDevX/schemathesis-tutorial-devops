@@ -3,6 +3,6 @@ while [ ! -f /tmp/node-ready ]; do
 done
 
 cp /assets/calculator/index.html .
-npx --yes serve --listen http://0.0.0.0:3000
+python3 -m http.server 3000 &
 
 touch /tmp/bg-ready
