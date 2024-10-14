@@ -79,6 +79,11 @@ app.get("/history", (req, res) => {
 });
 app.all("/history", send405);
 
+app.get("/very-secret", (req, res) => {
+  res.redirect("https://youtu.be/dQw4w9WgXcQ");
+});
+app.all("/very-secret", send405);
+
 app.listen(port, () => {
   console.log(`Calculator listening on port ${port}`)
 });
