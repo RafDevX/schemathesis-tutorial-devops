@@ -28,8 +28,8 @@ For example, a pet store server might accept HTTP `GET`{{}} requests at
 
 ```json
 [
-    {"id": 34, "name": "sofia", "kind": "dog"},
-    {"id": 178, "name": "sofia2", "kind": "cat"}
+    {"id": 34, "name": "Karen", "kind": "cat"},
+    {"id": 178, "name": "Bob", "kind": "turtle"}
 ]
 ```
 
@@ -38,8 +38,8 @@ new pet, with the client having to submit some pieces of information, such as:
 
 ```json
 {
-    "name": "sofia3",
-    "kind": "bird",
+    "name": "Francis",
+    "kind": "dog",
     "cute": true,
     "sofas_destroyed": 17
 }
