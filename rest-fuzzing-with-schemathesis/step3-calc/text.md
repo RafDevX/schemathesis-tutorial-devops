@@ -82,6 +82,8 @@ which shows something like
 In this way, we have demonstrated how one might use our example API in a
 real-life scenario.
 
+![Mathilda with her food](./Mathilda.png)
+
 # Next Up
 
 Having now a grasp of how REST APIs work, we can move onto the main topic of
