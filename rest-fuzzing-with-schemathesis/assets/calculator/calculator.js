@@ -15,7 +15,7 @@ app.use((err, req, res, next) => {
   res.status(500).json({ error: "Unknown error" });
 });
 
-const send405 = (req, res) => res.status(405).json({ error: "Invalid method"});
+const send405 = (req, res) => res.status(405).json({ error: "Invalid method" });
 
 app.post("/sum", (req, res) => {
   const numbers = req.body;
@@ -33,7 +33,7 @@ app.all("/sum", send405);
 
 app.post("/divide", (req, res) => {
   if (typeof req.body !== "object") {
-    res.status(400).json({ error: "Body must be an object "});
+    res.status(400).json({ error: "Body must be an object" });
     return;
   }
 
@@ -44,7 +44,7 @@ app.post("/divide", (req, res) => {
   }
 
   if (divisor == 0) {
-    res.status(400).json({ error: "Division by zero "});
+    res.status(400).json({ error: "Division by zero" });
     return;
   }
 
@@ -57,7 +57,7 @@ app.all("/divide", send405);
 
 app.post("/power", (req, res) => {
   if (typeof req.body !== "object") {
-    res.status(400).json({ error: "Body must be an object "});
+    res.status(400).json({ error: "Body must be an object" });
     return;
   }
 

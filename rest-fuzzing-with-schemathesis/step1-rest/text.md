@@ -22,7 +22,7 @@ other.
 _(Image source: Postman)_
 
 Servers accept *requests* at some *API endpoint*, defined by a **verb** (such
-as `GET`{{}}{{}}/`POST`{{}}/`DELETE`{{}}/...) and a **URL**. They process such
+as `GET`{{}}/`POST`{{}}/`DELETE`{{}}/...) and a **URL**. They process such
 requests and then reply with a *response* that the client applications can
 parse.
 
