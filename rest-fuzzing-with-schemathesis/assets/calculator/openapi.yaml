@@ -5,7 +5,7 @@ info:
         This API allows doing stuff when math is too hard
     version: 1.0.0
 servers:
-    - url: https://localhost:3025
+    - url: http://localhost:3025
 paths:
     /sum:
         post:

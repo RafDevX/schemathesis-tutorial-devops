@@ -26,7 +26,9 @@
             },
             {
                 "title": "Fuzzing with Schemathesis",
-                "text": "step4-st/text.md"
+                "text": "step4-st/text.md",
+                "background": "step4-st/background.sh",
+                "foreground": "./wait-for-background.sh"
             },
             {
                 "title": "Understanding Schemathesis Output",
