@@ -1,8 +1,7 @@
 cd ~/workspace
 
-cp /assets/calculator/openapi.yaml ~/workspace
-ls -la > /tmp/debug
-stat -c %X openapi.yaml > /tmp/before.stamp
+cp /assets/calculator/openapi.yaml ~/workspace/openapi.yaml
+stat -c %X ~/workspace/openapi.yaml > /tmp/before.stamp
 
 touch /tmp/bg-ready
 

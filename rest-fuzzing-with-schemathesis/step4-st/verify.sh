@@ -1,3 +1,3 @@
 cd ~/workspace
 
-stat st.out
+stat ~/workspace/st.out
