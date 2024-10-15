@@ -83,7 +83,7 @@ In this way, we have demonstrated how one might use our example API in a
 real-life scenario.
 
 ![Mathilda with her food](./Mathilda.png)\
-(Image source: _https://www.cleanpng.com/png-cat-food-cat-kitty-food-orange-fur-collar-curious-8027930/_)
+_(Image source: CLEANPNG)_
 
 # Next Up
 
