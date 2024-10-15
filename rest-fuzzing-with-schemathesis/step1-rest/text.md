@@ -19,7 +19,7 @@ have a common language they speak and so can easily be interoperable with each
 other.
 
 ![REST API](./rest_api.jpg)\
-(Image source: _https://blog.postman.com/rest-api-examples/_)
+_(Image source: Postman)_
 
 Servers accept *requests* at some *API endpoint*, defined by a **verb** (such
 as `GET`{{}}{{}}/`POST`{{}}/`DELETE`{{}}/...) and a **URL**. They process such
