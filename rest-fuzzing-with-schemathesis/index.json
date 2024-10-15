@@ -32,7 +32,9 @@
             },
             {
                 "title": "Understanding Schemathesis Output",
-                "text": "step5-output/text.md"
+                "text": "step5-output/text.md",
+                "background": "step5-output/background.sh",
+                "foreground": "./wait-for-background.sh"
             },
             {
                 "title": "Fixing Discovered Problems",

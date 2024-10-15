@@ -1,0 +1,185 @@
+======================= Schemathesis test session starts =======================
+Schema location: file:///root/openapi.yaml
+Base URL: http://localhost:3025
+Specification version: Open API 3.0.0
+Random seed: 242849099443134413821379335465987281679
+Workers: 1
+Collected API operations: 4
+Collected API links: 0
+API probing: ...
+API probing: SUCCESS
+Schema analysis: ...
+Schema analysis: SKIP
+
+POST /sum F                                                               [ 25%]
+POST /divide F                                                            [ 50%]
+POST /power F                                                             [ 75%]
+GET /history F                                                            [100%]
+
+=================================== FAILURES ===================================
+__________________________________ POST /sum ___________________________________
+1. Test Case ID: cAZuWH
+
+- Server error
+
+- Undocumented HTTP status code
+
+    Received: 500
+    Documented: 200, 400
+
+[500] Internal Server Error:
+
+    `<!DOCTYPE html>
+    <html lang="en">
+    <head>
+    <meta charset="utf-8">
+    <title>Error</title>
+    </head>
+    <body>
+    <pre>TypeError: Reduce of empty array with no initial value<br> &nbsp; &nbsp;at Array.reduce (&lt;anonymous&gt;)<br> &nbsp; &nbsp;at app.post (/root/calculator.js:27:23)<br> &nbsp; &nbsp;at Layer.handle [as handle_request] (/root/node_modules/express/lib/router/layer.js:95:5)<br> &nbsp; &nbsp;at next (/root/node_modules/express/lib/router/route.js:149:13)<br> &nbsp; &nbsp;at Route.dispatch (/root/node_modules/ // Output truncated...`
+
+Reproduce with: 
+
+    curl -X POST -H 'Content-Type: application/json' -d '[]' http://localhost:3025/sum
+
+2. Test Case ID: NKXiRe
+
+- Response violates schema
+
+    None is not of type 'number'
+
+    Schema at /properties/sum:
+
+        {
+            "type": "number"
+        }
+
+    Value:
+
+        null
+
+[200] OK:
+
+    `{"sum":null}`
+
+Reproduce with: 
+
+    curl -X POST -H 'Content-Type: application/json' -d '[8.988465674311579e+307, 8.98846567431158e+307]' http://localhost:3025/sum
+
+_________________________________ POST /divide _________________________________
+1. Test Case ID: uAOBba
+
+- Response violates schema
+
+    None is not of type 'number'
+
+    Schema at /properties/quotient:
+
+        {
+            "type": "number"
+        }
+
+    Value:
+
+        null
+
+[200] OK:
+
+    `{"quotient":null}`
+
+Reproduce with: 
+
+    curl -X POST -H 'Content-Type: application/json' -d '{"dividend": 4.0, "divisor": 2.2250738585072014e-308}' http://localhost:3025/divide
+
+_________________________________ POST /power __________________________________
+1. Test Case ID: UnGHZk
+
+- Response violates schema
+
+    None is not of type 'number'
+
+    Schema at /properties/power:
+
+        {
+            "type": "number"
+        }
+
+    Value:
+
+        null
+
+[200] OK:
+
+    `{"power":null}`
+
+Reproduce with: 
+
+    curl -X POST -H 'Content-Type: application/json' -d '{"base": 0.0, "exponent": -1.0}' http://localhost:3025/power
+
+_________________________________ GET /history _________________________________
+1. Test Case ID: mbljRW
+
+- Response violates schema
+
+    {'operation': 'exponentiation', 'base': 0, 'exponent': -1, 'power': None} is not valid under any of the given schemas
+
+    Schema at /items:
+
+        {
+            "oneOf": [
+                {
+                    "type": "object",
+                    "properties": {
+                        "operation": {
+                            "type": "string",
+                            "enum": [
+                                "sum"
+                            ]
+                        },
+                        "numbers": {
+                            "type": "array",
+                            "items": {
+                                "type": "number"
+                            }
+                        },
+                        "sum": {
+                            "type": "number"
+            // Output truncated...
+        }
+
+    Value:
+
+        {
+            "operation": "exponentiation",
+            "base": 0,
+            "exponent": -1,
+            "power": null
+        }
+
+[200] OK:
+
+    `[{"operation":"sum","numbers":[23,27,2],"sum":52},{"operation":"sum","numbers":[2.220446049250313e-16,-2.2250738585072014e-308],"sum":2.220446049250313e-16},{"operation":"sum","numbers":[0,-9007199254740992,1.7976931348623157e+308,-1.192092896e-7,0,-5.545371510700832e-40,-1.6400911182839245e-193,-1.1125369292536007e-308,-1.1],"sum":1.7976931348623157e+308},{"operation":"sum","numbers":[-1.401298464324817e-45,2.3842686220283608e+291,-2.2250738585e-313],"sum":2.3842686220283608e+291},{"operation":"sum","numbe // Output truncated...`
+
+Reproduce with: 
+
+    curl -X GET http://localhost:3025/history
+
+=================================== SUMMARY ====================================
+
+Performed checks:
+    not_a_server_error                              431 / 434 passed          FAILED 
+    status_code_conformance                         431 / 434 passed          FAILED 
+    content_type_conformance                        434 / 434 passed          PASSED 
+    response_headers_conformance                    434 / 434 passed          PASSED 
+    response_schema_conformance                     289 / 434 passed          FAILED 
+    negative_data_rejection                         434 / 434 passed          PASSED 
+    ignored_auth                                    434 / 434 passed          PASSED 
+
+Note: Use the 'X-Schemathesis-TestCaseId' header to correlate test case ids from failure messages with server logs for debugging.
+
+Note: To replicate these test failures, rerun with `--hypothesis-seed=242849099443134413821379335465987281679`
+
+Tip: Use the `--report` CLI option to visualize test results via Schemathesis.io.
+We run additional conformance checks on reports from public repos.
+
+============================== 4 failed in 40.31s ==============================
