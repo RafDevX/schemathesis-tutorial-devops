@@ -16,25 +16,29 @@
                 "title": "OpenAPI Specification File",
                 "text": "step2-openapi/text.md",
                 "background": "step2-openapi/background.sh",
-                "foreground": "./wait-for-background.sh"
+                "foreground": "./wait-for-background.sh",
+                "verify": "step2-openapi/verify.sh"
             },
             {
                 "title": "Trying out the Calculator API",
                 "text": "step3-calc/text.md",
                 "background": "step3-calc/background.sh",
-                "foreground": "./wait-for-background.sh"
+                "foreground": "./wait-for-background.sh",
+                "verify": "step3-calc/verify.sh"
             },
             {
                 "title": "Fuzzing with Schemathesis",
                 "text": "step4-st/text.md",
                 "background": "step4-st/background.sh",
-                "foreground": "./wait-for-background.sh"
+                "foreground": "./wait-for-background.sh",
+                "verify": "step4-st/verify.sh"
             },
             {
                 "title": "Understanding Schemathesis Output",
                 "text": "step5-output/text.md",
                 "background": "step5-output/background.sh",
-                "foreground": "./wait-for-background.sh"
+                "foreground": "./wait-for-background.sh",
+                "verify": "step5-output/verify.sh"
             },
             {
                 "title": "Fixing Discovered Problems",
