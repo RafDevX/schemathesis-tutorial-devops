@@ -60,14 +60,15 @@ try running it yourself against the Calculator API!
 Just run the following command in your terminal on the right:
 
 ```sh
-st run --checks all openapi.yaml > st.out
+st run --checks all openapi.yaml --base-url http://localhost:3025 > st.out
 ```
 
 This will perform all relevant checks against our Calculator, based on the
-contract we've already looked at, and save the result to `st.out`{{}}, which
-we'll analyze in the next step.
+contract we've already looked at and assuming the server is running on port
+`3025`, and save the result to `st.out`{{}}, which we'll analyze in the next
+step.
 
-You can see that it was quite fast, and yet the fuzzer generated more than XXXX
+You can see that it was quite fast, and yet the fuzzer generated hundreds of
 inputs which were independently tested.
 
 # Next Up
