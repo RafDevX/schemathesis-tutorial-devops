@@ -83,7 +83,7 @@ In this way, we have demonstrated how one might use our example API in a
 real-life scenario.
 
 ![Mathilda with her food](./Mathilda.png)\
-_(Image source: CLEANPNG)_
+_(Image source: Cleanpng)_
 
 # Next Up
 

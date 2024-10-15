@@ -10,7 +10,8 @@ automate important tasks.
 definition language that provides a formal standard for describing HTTP-based
 APIs. With OpenAPI, an API's specification can be encoded in a YAML document (or
 JSON), allowing it to be clearly understood by humans and tools alike, even if
-they don't know the specifics of the application.
+they don't know the specifics of the application. Using OpenAPI, a **contract**
+can be established between the API provider and its consumers.
 
 # Calculator API
 
