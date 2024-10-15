@@ -1,3 +1,5 @@
+cd ~/workspace
+
 cp /assets/calculator/openapi.yaml .
 
 touch /tmp/bg-ready

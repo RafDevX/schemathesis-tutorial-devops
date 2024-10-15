@@ -1,3 +1,5 @@
+cd ~/workspace
+
 cp /assets/calculator/index.html .
 python3 -m http.server 3000 &
 

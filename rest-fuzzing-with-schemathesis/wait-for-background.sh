@@ -13,6 +13,7 @@ while true; do
 done
 
 alias cat='batcat'
+cd ~/workspace
 
 rm /tmp/bg-ready # prepare for next invocation
 clear
