@@ -88,5 +88,5 @@ _(Image source: Cleanpng)_
 # Next Up
 
 Having now a grasp of how REST APIs work, we can move onto the main topic of
-this tutorial: fuzzing. Click **NEXT** if you still love Matilda, despite the
+this tutorial: fuzzing. Click **CHECK** if you still love Matilda, despite the
 newfound challenges in your relationship.
